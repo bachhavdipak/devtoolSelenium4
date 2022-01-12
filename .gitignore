@@ -1,0 +1,11 @@
+.gradle/
+.idea
+*.iml
+build/
+src/main/java/environmentalProperties/local.properties
+src/main/java/environmentalProperties/local.properties.example
+logback.xml
+lombok.config
+out/
+src/test/java/com.specsavers.automation.selenium/CurrentTestRunner.java
+target/

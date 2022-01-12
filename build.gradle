@@ -1,0 +1,71 @@
+defaultTasks 'clean','test','aggregate'
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:2.1.4"
+        classpath "net.serenity-bdd:serenity-single-page-report:2.1.4"
+    }
+}
+
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.23")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+
+ext {
+    serenityVersion = '3.1.15'
+    junitVersion = '4.13.1'
+}
+
+dependencies {
+    compile(
+            //Serenity Web Automation Libraries
+            "net.serenity-bdd:serenity-core:${serenityVersion}",
+            "net.serenity-bdd:serenity-junit:${serenityVersion}",
+            "net.serenity-bdd:serenity-rest-assured:${serenityVersion}",
+            "net.serenity-bdd:serenity-cucumber:${serenityVersion}",
+            'io.github.bonigarcia:webdrivermanager:3.8.1',
+            'org.seleniumhq.selenium:selenium-java:3.5.3',
+
+            //JSON Libraries
+            "junit:junit:${junitVersion}",
+            'org.json:json:20180130',
+            // Assertions & Others
+            'org.assertj:assertj-core:3.10.0',
+            'org.slf4j:slf4j-simple:1.7.7',
+            "net.serenity-bdd:serenity-report-resources:${serenityVersion}"
+
+    )
+    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.0.3'
+
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+serenity {
+    reports = ["single-page-html"]
+}
+gradle.startParameter.continueOnFailure = true
